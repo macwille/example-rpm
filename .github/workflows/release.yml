@@ -1,11 +1,13 @@
 name: Build and Publish RPM package
 
 on:
-  release:
-    types: [ created ]
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   build:
+    if: github.event.release.prerelease == false
     runs-on: ubuntu-latest
 
     steps:
