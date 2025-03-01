@@ -2,6 +2,7 @@ package com.github.macwille;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Files;
@@ -10,6 +11,11 @@ import java.time.LocalDateTime;
 
 public final class TimedLogTest {
     private final String examplePath = "src/test/resources/example";
+
+    @BeforeAll
+    public static void createTestDirectory() {
+        Assertions.assertDoesNotThrow(() -> Files.createDirectories(Paths.get("src/test/resources")));
+    }
 
     @AfterEach
     public void cleanUp() {
