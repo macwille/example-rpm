@@ -5,13 +5,13 @@
 
     <parent>
         <groupId>com.github.macwille</groupId>
-        <artifactId>example-service</artifactId>
-        <version>1.0.0</version>
+        <artifactId>example-rpm</artifactId>
+        <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>example-service-rpm</artifactId>
-    <packaging>maven-rpm</packaging>
+    <packaging>pom</packaging>
 
     <build>
         <plugins>

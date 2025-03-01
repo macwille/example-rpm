@@ -21,17 +21,20 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Build and install main project
-        run: mvn -B clean install package --file pom.xml
+      - name: Build RPM package
+        run: mvn -B clean install --file pom.xml
+
+      - name: Build JAR package
+        run: mvn -B clean install --file jar-pom.xml
 
       - name: Build RPM package
-        run: mvn -B clean package -DskipTests --file rpm/rpm-pom.xml
+        run: mvn -B clean package --file rpm/pom.xml
 
       - name: Upload RPM artifact
         uses: actions/upload-artifact@v4
         with:
-          name: rpm-package
-          path: rpm/target/rpm/
+         name: rpm-package
+         path: rpm/target/rpm/**/RPMS/**/*.rpm
 
   release:
     needs: build
