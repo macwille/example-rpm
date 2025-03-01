@@ -34,7 +34,7 @@
                     </requires>
 
                     <mappings>
-                        <!-- JAR Placement -->
+                        <!-- JAR placement -->
                         <mapping>
                             <directory>/opt/example-service</directory>
                             <filemode>0755</filemode>
@@ -43,7 +43,7 @@
                             </sources>
                         </mapping>
 
-                        <!-- Post-Install Script (Now in /opt/example-service) -->
+                        <!-- Post-install Script -->
                         <mapping>
                             <directory>/opt/example-service</directory>
                             <filemode>0755</filemode>
@@ -61,7 +61,7 @@
                             </sources>
                         </mapping>
 
-                        <!-- Sysconfig File (for Environment Variables) -->
+                        <!-- Sysconfig file -->
                         <mapping>
                             <directory>/etc/sysconfig</directory>
                             <filemode>0644</filemode>
