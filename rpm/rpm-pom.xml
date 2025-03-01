@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.github.macwille</groupId>
+        <artifactId>example-service</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>example-service-rpm</artifactId>
+    <packaging>maven-rpm</packaging>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rpm-maven-plugin</artifactId>
+                <version>2.3.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <name>example-service</name>
+                    <version>${project.version}</version>
+                    <release>1</release>
+                    <group>example-group</group>
+                    <description>Example RPM packaged systemd service using Java</description>
+                    <license>MIT</license>
+                    <packager>macwille</packager>
+
+                    <requires>
+                        <require>java-${maven.compiler.target}-openjdk</require>
+                        <require>systemd</require>
+                    </requires>
+
+                    <mappings>
+                        <!-- JAR Placement -->
+                        <mapping>
+                            <directory>/opt/example-service</directory>
+                            <filemode>0755</filemode>
+                            <sources>
+                                <source>${project.parent.build.directory}/${project.parent.build.finalName}.jar</source>
+                            </sources>
+                        </mapping>
+
+                        <!-- Post-Install Script (Now in /opt/example-service) -->
+                        <mapping>
+                            <directory>/opt/example-service</directory>
+                            <filemode>0755</filemode>
+                            <sources>
+                                <source>src/main/resources/post-install.sh</source>
+                            </sources>
+                        </mapping>
+
+                        <!-- Systemd Service File -->
+                        <mapping>
+                            <directory>/etc/systemd/system</directory>
+                            <filemode>0644</filemode>
+                            <sources>
+                                <source>src/main/resources/example-service.service</source>
+                            </sources>
+                        </mapping>
+
+                        <!-- Sysconfig File (for Environment Variables) -->
+                        <mapping>
+                            <directory>/etc/sysconfig</directory>
+                            <filemode>0644</filemode>
+                            <sources>
+                                <source>src/main/resources/example-service.conf</source>
+                            </sources>
+                        </mapping>
+                    </mappings>
+
+                    <!-- Post-install script execution -->
+                    <scripts>
+                        <postinstall>/opt/example-service/post-install.sh</postinstall>
+                    </scripts>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
