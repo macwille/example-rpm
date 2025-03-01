@@ -7,7 +7,6 @@ on:
 
 jobs:
   build:
-    if: github.event.release.prerelease == false
     runs-on: ubuntu-latest
 
     steps:
@@ -33,11 +32,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
          name: rpm-package
-         path: rpm/target/rpm/**/RPMS/**/*.rpm
+         path: rpm/target/rpm/**/*.rpm
 
   release:
     needs: build
-    if: github.event_name == 'release' && github.event.action == 'created'
     runs-on: ubuntu-latest
 
     steps:
