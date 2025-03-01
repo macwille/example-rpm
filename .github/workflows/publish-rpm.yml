@@ -1,9 +1,6 @@
 name: Build and Publish RPM package
 
 on:
-  push:
-    branches:
-      - main
   release:
     types: [ created ]
 
